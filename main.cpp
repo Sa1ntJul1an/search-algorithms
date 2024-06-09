@@ -134,8 +134,20 @@ int main(){
             }
         }
 
+        // DRAW START
+        Color startColor(0, 255, 0);
+        cellRect.setFillColor(startColor);
+        cellRect.setPosition(Vector2f(double(start.at(0) * CELL_SIZE), double(start.at(1) * CELL_SIZE)));
+        renderWindow.draw(cellRect);
+
+        // DRAW GOAL
+        Color goalColor(255, 0, 0);
+        cellRect.setFillColor(goalColor);
+        cellRect.setPosition(Vector2f(double(goal.at(0) * CELL_SIZE), double(goal.at(1) * CELL_SIZE)));
+        renderWindow.draw(cellRect);
+
         // DRAW VERTICAL GRID CELLS
-        int greyValue = 100;
+        int greyValue = 50;
         Color gridColor(greyValue, greyValue, greyValue);
         for (int i = 0; i <= WIDTH; i++){
             RectangleShape verticalLine(Vector2f(2, CELL_SIZE * HEIGHT));
@@ -153,18 +165,6 @@ int main(){
             renderWindow.draw(horizontalLine);
         }
         // ==========================================================
-
-        // DRAW START
-        Color startColor(0, 255, 0);
-        cellRect.setFillColor(startColor);
-        cellRect.setPosition(Vector2f(double(start.at(0) * CELL_SIZE), double(start.at(1) * CELL_SIZE)));
-        renderWindow.draw(cellRect);
-
-        // DRAW GOAL
-        Color goalColor(255, 0, 0);
-        cellRect.setFillColor(goalColor);
-        cellRect.setPosition(Vector2f(double(goal.at(0) * CELL_SIZE), double(goal.at(1) * CELL_SIZE)));
-        renderWindow.draw(cellRect);
 
         iterationText.setString("Iteration: " + to_string(iteration));
 
