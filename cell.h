@@ -15,7 +15,9 @@ class Cell{
 
         bool isObstacle();
     
-        void update();
+        void setExplored(bool);
+
+        bool isExplored();
 
     private:
         int _neighbors;

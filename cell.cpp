@@ -8,17 +8,21 @@ Cell::Cell (std::vector<int> position){
 }
 
 std::vector<int> Cell::getPosition(){
-    return _position;
+    return this->_position;
 }
 
 void Cell::setObstacle(bool isObstacle){
-    _isObstacle = isObstacle;
+    this->_isObstacle = isObstacle;
 }
 
 bool Cell::isObstacle(){
-    return _isObstacle;
+    return this->_isObstacle;
 }
 
-void Cell::update(){
+void Cell::setExplored(bool isExplored){
+    this->_isExplored = isExplored;
+}
 
+bool Cell::isExplored(){
+    return this->_isExplored;
 }
