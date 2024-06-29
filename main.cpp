@@ -146,7 +146,7 @@ int main(){
                     vector<int> cellPosition = cells[row][col]->getPosition();
                     cellRect.setPosition(Vector2f(double(cellPosition[0] * CELL_SIZE), double(cellPosition[1] * CELL_SIZE)));
 
-                    Color color(255, 255, 255);
+                    Color color(255, 255, 0);
                     cellRect.setFillColor(color);
 
                     renderWindow.draw(cellRect);
