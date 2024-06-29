@@ -7,6 +7,8 @@
 
 class Cell{
     public:
+        Cell();
+
         Cell(std::vector<int>);
 
         std::vector<int> getPosition();
@@ -19,8 +21,10 @@ class Cell{
 
         bool isExplored();
 
+        void addNeighbor(Cell*);
+
     private:
-        int _neighbors;
+        std::vector<Cell*> _neighbors;
         bool _isObstacle;
         bool _isExplored;
         std::vector<int> _position;

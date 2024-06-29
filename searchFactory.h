@@ -3,21 +3,15 @@
 
 #include "search.h"
 #include "searchAlgorithms.h"
-# include "breadthFirst.h"
+#include "breadthFirst.h"
+#include "cell.h"
 
 class SearchFactory{
     public:
-        Search* createSearch(SearchAlgorithm searchAlgorithm){
-            switch(searchAlgorithm){
-                case BreadthFirst:
-                    return new BreadthFirstSearch();
-                    break;
-                case DepthFirst:
-                    return new BreadthFirstSearch();
+        Search* createSearch(const Cell&, const Cell&, SearchAlgorithm);
 
-            }
-        }
+    private:
+        
 };
-
 
 #endif /* !SEARCHFACTORY_HEADER */

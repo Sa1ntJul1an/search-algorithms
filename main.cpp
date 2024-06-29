@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "cell.h"
+#include "search.h"
 
 // mingw32-make.exe
 
@@ -100,7 +101,7 @@ int main(){
             iteration = 0;
             searching = false;
         }
-        // =========================================================
+        // ==========================================================
 
 
         // CLOSE WINDOWS IF X PRESSED
@@ -146,7 +147,7 @@ int main(){
         cellRect.setPosition(Vector2f(double(goal.at(0) * CELL_SIZE), double(goal.at(1) * CELL_SIZE)));
         renderWindow.draw(cellRect);
 
-        // DRAW VERTICAL GRID CELLS
+        // DRAW VERTICAL GRID LINES
         int greyValue = 50;
         Color gridColor(greyValue, greyValue, greyValue);
         for (int i = 0; i <= WIDTH; i++){
@@ -157,7 +158,7 @@ int main(){
             renderWindow.draw(verticalLine);
         }
 
-        // DRAW HORIZONTAL GRID CELLS
+        // DRAW HORIZONTAL GRID LINES
         for (int i = 0; i <= HEIGHT; i++){
             RectangleShape horizontalLine(Vector2f(CELL_SIZE * HEIGHT, 2));
             horizontalLine.setFillColor(gridColor);

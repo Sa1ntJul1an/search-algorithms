@@ -1,6 +1,12 @@
 #include "cell.h"
 #include <vector>
 
+Cell::Cell(){
+    _position = std::vector<int> {0, 0};
+    _isObstacle = false;
+    _isExplored = false;
+}
+
 Cell::Cell (std::vector<int> position){
     _position = position;
     _isObstacle = false;
@@ -25,4 +31,8 @@ void Cell::setExplored(bool isExplored){
 
 bool Cell::isExplored(){
     return this->_isExplored;
+}
+
+void Cell::addNeighbor(Cell* neighbor){
+    _neighbors.push_back(neighbor);
 }
