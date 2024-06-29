@@ -7,6 +7,8 @@
 
 #include "cell.h"
 #include "search.h"
+#include "searchAlgorithms.h"
+#include "searchFactory.h"
 
 // mingw32-make.exe
 
@@ -23,20 +25,37 @@ const int CELL_SIZE = 20;
 const vector<int> start = {0, HEIGHT - 1};
 const vector<int> goal = {WIDTH - 1, 0};
 
+Cell startCell(start);
+Cell goalCell(goal);
+
+SearchAlgorithm search_algo = SearchAlgorithm::BreadthFirst;
+
 int main(){
+
+    SearchFactory factory;
 
     vector<float> mousePosition;
 
-    vector<vector<Cell>> cells;
+    vector<vector<Cell*>> cells;
 
+    // fill state space 
     for (int row = 0; row < WIDTH; row ++){
-        vector<Cell> column;
+        vector<Cell*> column;
         for (int col = 0; col < HEIGHT; col ++){
-            Cell cell({row, col});
-            column.push_back(cell);
+            vector<int> position = {row, col};
+            if (position == start){
+                column.push_back(&startCell);
+            } else if (position == goal){
+                column.push_back(&goalCell);
+            } else{
+                Cell* cell = new Cell({row, col});
+                column.push_back(cell);
+            }
         }
         cells.push_back(column);
     }
+
+    Search* search = factory.createSearch(startCell, goalCell, cells, search_algo);
 
     bool searching = false;
 
@@ -70,7 +89,7 @@ int main(){
             int col = mousePosition[1] / CELL_SIZE;
 
             if (row < WIDTH && row >= 0 && col < HEIGHT && col >= 0) {
-                cells[row][col].setObstacle(true);
+                cells[row][col]->setObstacle(true);
             }
 
         } else if (Mouse::isButtonPressed(Mouse::Right))       // remove obstacle
@@ -79,7 +98,7 @@ int main(){
             int col = mousePosition[1] / CELL_SIZE;
 
             if (row < WIDTH && row > 0 && col < HEIGHT && col > 0) {
-                cells[row][col].setObstacle(false);
+                cells[row][col]->setObstacle(false);
             }
         }
 
@@ -95,7 +114,7 @@ int main(){
         if (Keyboard::isKeyPressed(Keyboard::R)){       // R to reset
             for (int row = 0; row < WIDTH; row++){
                 for (int col = 0; col < HEIGHT; col++){
-                    cells[row][col].setObstacle(false);
+                    cells[row][col]->setObstacle(false);
                 }
             }
             iteration = 0;
@@ -123,8 +142,8 @@ int main(){
 
         for (int row = 0; row < WIDTH; row ++){
             for (int col = 0; col < WIDTH; col ++){
-                if (cells[row][col].isObstacle()){
-                    vector<int> cellPosition = cells[row][col].getPosition();
+                if (cells[row][col]->isObstacle()){
+                    vector<int> cellPosition = cells[row][col]->getPosition();
                     cellRect.setPosition(Vector2f(double(cellPosition[0] * CELL_SIZE), double(cellPosition[1] * CELL_SIZE)));
 
                     Color color(255, 255, 255);
@@ -173,6 +192,12 @@ int main(){
 
         renderWindow.display();
 
+    }
+
+    for (int row = 0; row < WIDTH; row ++){
+        for (int col = 0; col < HEIGHT; col ++){
+            delete cells.at(row).at(col);
+        }
     }
 
     return 0;

@@ -3,6 +3,7 @@
 
 Cell::Cell(){
     _position = std::vector<int> {0, 0};
+    _isGoal = false;
     _isObstacle = false;
     _isExplored = false;
 }

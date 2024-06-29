@@ -25,6 +25,7 @@ class Cell{
 
     private:
         std::vector<Cell*> _neighbors;
+        bool _isGoal;
         bool _isObstacle;
         bool _isExplored;
         std::vector<int> _position;

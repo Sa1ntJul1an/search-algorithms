@@ -9,14 +9,20 @@
 
 class BreadthFirstSearch : public Search{
     public:
-        BreadthFirstSearch(const Cell&, const Cell&);
+        BreadthFirstSearch(const Cell&, const Cell&, std::vector<std::vector<Cell*>>&);
 
         void update();
+
+        void initialize();
 
     private:
         Cell _start;
         Cell _goal;
-        
+
+        int _width;
+        int _height;
+
+        std::vector<std::vector<Cell*>> _stateSpace;
         std::queue<Cell*> _frontier;
 };
 
