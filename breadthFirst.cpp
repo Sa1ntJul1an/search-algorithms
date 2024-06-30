@@ -24,7 +24,6 @@ void BreadthFirstSearch::update(){
     currentCell->setFrontier(false);
 
     if (currentCell == _goal){
-        std::cout << "Goal reached." << std::endl;
         _searchComplete = true;
         _goalReached = true;
         return;
