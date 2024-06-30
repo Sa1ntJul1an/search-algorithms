@@ -114,12 +114,13 @@ int main(){
             if (search->isSearchComplete()){
                 cout << "Search complete." << endl;
                 searching = false;
-            }
 
-            if (search->isGoalReached()){
-                cout << "Goal reached.  Backtracking to start..." << endl;
+                if (search->isGoalReached()){
+                    cout << "Goal reached.  Backtracking to start..." << endl;
+                } else {
+                    cout << "Goal not found, path may not be possible." << endl;
+                }
             }
-            
         }
 
 
