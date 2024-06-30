@@ -13,10 +13,16 @@ class Search{
         virtual void initialize() = 0;
 
     private:
+        int _width;
+        int _height;
+
         Cell * _start;
         Cell * _goal;
 
         std::vector<std::vector<Cell*>> _stateSpace;
+
+    protected:
+        void _populateNeighbors();
 };
 
 
