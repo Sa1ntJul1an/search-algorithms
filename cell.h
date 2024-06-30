@@ -25,6 +25,10 @@ class Cell{
 
         bool isFrontier();
 
+        void setPath(bool);
+        
+        bool isPath();
+
         void setParent(Cell*);
 
         Cell* getParent();
@@ -32,6 +36,8 @@ class Cell{
         void addNeighbor(Cell*);
 
         std::vector<Cell*> getNeighbors();
+
+        void resetState();
 
     private:
         std::vector<Cell*> _neighbors;
@@ -41,6 +47,7 @@ class Cell{
         bool _isObstacle;
         bool _isExplored;
         bool _isFrontier;
+        bool _isPath;
         std::vector<int> _position;
 };
 

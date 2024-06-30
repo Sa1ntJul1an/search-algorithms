@@ -16,11 +16,11 @@ using namespace sf;
 using namespace std;
 
 // width in height, in grid cells
-const int WIDTH = 50;
-const int HEIGHT = 50;
+const int WIDTH = 30;
+const int HEIGHT = 30;
 
 // size of cell, pixels
-const int CELL_SIZE = 20;
+const int CELL_SIZE = 30;
 
 const vector<int> start = {0, HEIGHT - 1};
 const vector<int> goal = {WIDTH - 1, 0};
@@ -28,12 +28,15 @@ const vector<int> goal = {WIDTH - 1, 0};
 Cell * startCell = new Cell(start);
 Cell * goalCell = new Cell(goal);
 
+Cell * currentPathCell;
+
 Color default_color = Color(0, 0, 0);
-Color explored_color = Color(180, 180, 180);
+Color explored_color = Color(110, 110, 110);
 Color obstacle_color = Color(255, 255, 0);
 Color frontier_color = Color(255, 0, 255);
+Color path_color = Color(0, 255, 255);
 
-SearchAlgorithm search_algo = SearchAlgorithm::DepthFirst;
+SearchAlgorithm search_algo = SearchAlgorithm::BreadthFirst;
 
 int main(){
 
@@ -60,9 +63,10 @@ int main(){
         cells.push_back(column);
     }
 
-    Search* search = factory.createSearch(startCell, goalCell, cells, search_algo);
+    Search* search;
 
     bool searching = false;
+    bool backTracking = false;
 
     int iteration = 0;
 
@@ -89,21 +93,23 @@ int main(){
 
         mousePosition = {float(Mouse::getPosition(renderWindow).x), float(Mouse::getPosition(renderWindow).y)};
 
-        if (Mouse::isButtonPressed(Mouse::Left)){       // set as obstacle
-            int row = mousePosition[0] / CELL_SIZE;
-            int col = mousePosition[1] / CELL_SIZE;
+        if (!searching){
+            if (Mouse::isButtonPressed(Mouse::Left)){       // set as obstacle
+                int row = mousePosition[0] / CELL_SIZE;
+                int col = mousePosition[1] / CELL_SIZE;
 
-            if (row < WIDTH && row >= 0 && col < HEIGHT && col >= 0) {
-                cells[row][col]->setObstacle(true);
-            }
+                if (row < WIDTH && row >= 0 && col < HEIGHT && col >= 0) {
+                    cells[row][col]->setObstacle(true);
+                }
 
-        } else if (Mouse::isButtonPressed(Mouse::Right))       // remove obstacle
-        {
-            int row = mousePosition[0] / CELL_SIZE;
-            int col = mousePosition[1] / CELL_SIZE;
+            } else if (Mouse::isButtonPressed(Mouse::Right))       // remove obstacle
+            {
+                int row = mousePosition[0] / CELL_SIZE;
+                int col = mousePosition[1] / CELL_SIZE;
 
-            if (row < WIDTH && row > 0 && col < HEIGHT && col > 0) {
-                cells[row][col]->setObstacle(false);
+                if (row < WIDTH && row > 0 && col < HEIGHT && col > 0) {
+                    cells[row][col]->setObstacle(false);
+                }
             }
         }
 
@@ -116,16 +122,30 @@ int main(){
                 searching = false;
 
                 if (search->isGoalReached()){
-                    cout << "Goal reached.  Backtracking to start..." << endl;
+                    cout << "Goal reached.  Backtracking to start cell..." << endl;
+                    backTracking = true;
+                    currentPathCell = goalCell;
                 } else {
                     cout << "Goal not found, path may not be possible." << endl;
                 }
             }
         }
 
+        if (backTracking) {
+            currentPathCell->setPath(true);
+            Cell * parent = currentPathCell->getParent();
+            currentPathCell = parent;
+
+            if (currentPathCell == nullptr){
+                backTracking = false;
+            }
+        }
+
 
         // KEYBOARD EVENTS =========================================
         if (!searching && Keyboard::isKeyPressed(Keyboard::Space)){   // space to start search
+
+            search = factory.createSearch(startCell, goalCell, cells, search_algo);
             searching = true;
             search->initialize();
 
@@ -135,7 +155,7 @@ int main(){
         if (Keyboard::isKeyPressed(Keyboard::R)){       // R to reset
             for (int row = 0; row < WIDTH; row++){
                 for (int col = 0; col < HEIGHT; col++){
-                    cells[row][col]->setObstacle(false);
+                    cells[row][col]->resetState();
                 }
             }
             renderWindow.setFramerateLimit(60);
@@ -168,7 +188,9 @@ int main(){
                 Cell* currentCell = cells[row][col];
                 vector<int> cellPosition = cells[row][col]->getPosition();
                 cellRect.setPosition(Vector2f(double(cellPosition[0] * CELL_SIZE), double(cellPosition[1] * CELL_SIZE)));
-                if (currentCell->isFrontier()){
+                if (currentCell->isPath()){
+                    color = path_color;
+                }else if (currentCell->isFrontier()){
                     color = frontier_color;
                 }else if (currentCell->isExplored()){
                     color = explored_color;
@@ -224,6 +246,8 @@ int main(){
 
     delete startCell;
     delete goalCell;
+
+    delete search;
 
     for (int row = 0; row < WIDTH; row ++){
         for (int col = 0; col < HEIGHT; col ++){
