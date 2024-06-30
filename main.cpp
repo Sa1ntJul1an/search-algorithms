@@ -29,7 +29,7 @@ Cell * startCell = new Cell(start);
 Cell * goalCell = new Cell(goal);
 
 Color default_color = Color(0, 0, 0);
-Color explored_color = Color(255, 255, 255);
+Color explored_color = Color(180, 180, 180);
 Color obstacle_color = Color(255, 255, 0);
 Color frontier_color = Color(255, 0, 255);
 
@@ -119,7 +119,7 @@ int main(){
             search->initialize();
 
             // slow framerate for easier viewing of each iteration
-            renderWindow.setFramerateLimit(10);
+            renderWindow.setFramerateLimit(30);
         }
         if (Keyboard::isKeyPressed(Keyboard::R)){       // R to reset
             for (int row = 0; row < WIDTH; row++){
@@ -157,12 +157,12 @@ int main(){
                 Cell* currentCell = cells[row][col];
                 vector<int> cellPosition = cells[row][col]->getPosition();
                 cellRect.setPosition(Vector2f(double(cellPosition[0] * CELL_SIZE), double(cellPosition[1] * CELL_SIZE)));
-                if (currentCell->isObstacle()){
-                    color = obstacle_color;
-                } else if (currentCell->isExplored()){
-                    color = explored_color;
-                } else if (currentCell->isFrontier()){
+                if (currentCell->isFrontier()){
                     color = frontier_color;
+                }else if (currentCell->isExplored()){
+                    color = explored_color;
+                } else if (currentCell->isObstacle()){
+                    color = obstacle_color;
                 } else {
                     color = default_color;
                 }

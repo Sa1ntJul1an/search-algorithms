@@ -17,24 +17,21 @@ void BreadthFirstSearch::update(){
 
     Cell* currentCell = _frontier.front();
     _frontier.pop();
+    currentCell->setFrontier(false);
 
     if (currentCell == _goal){
         return;
     }
 
-    std::cout << std::to_string(currentCell->getPosition()[0]) << std::endl;
-    std::cout << currentCell << std::endl;
-
     std::vector<Cell*> neighbors = currentCell->getNeighbors();
     int numNeighbors = neighbors.size();
-
-    std::cout << std::to_string(numNeighbors) << std::endl;
 
     for (int i = 0; i < numNeighbors; i ++){
         Cell * neighbor = neighbors[i];
         if (!neighbor->isExplored()){
             neighbor->setExplored(true);
             neighbor->setParent(currentCell);
+            neighbor->setFrontier(true);
             _frontier.push(neighbor);
         }
     }
@@ -43,8 +40,6 @@ void BreadthFirstSearch::update(){
 void BreadthFirstSearch::initialize(){
 
     std::cout << "Initializing breadth first search..." << std::endl;
-            std::cout << std::to_string(_start->getPosition()[0]) << std::to_string(_start->getPosition()[1]) << std::endl;
-
 
     _width = _stateSpace.size();
     _height = _stateSpace[0].size();
@@ -52,9 +47,6 @@ void BreadthFirstSearch::initialize(){
     for (int row = 0; row < _width; row++){
         for (int col = 0; col < _height; col++){
             Cell* currentCell = _stateSpace.at(row).at(col);
-            if (currentCell == _start){
-                std::cout << "start found" << std::endl;
-            }
 
             if (currentCell->isObstacle()){
                 continue;
@@ -71,8 +63,6 @@ void BreadthFirstSearch::initialize(){
                                 currentCell->addNeighbor(neighbor);
                             }
 
-                            //std::cout << "Cell at " << std::to_string(currentCell->getPosition()[0]) << " " << std::to_string(currentCell->getPosition()[1])<< std::endl;
-                            //std::cout << "Has " << std::to_string(neighbor->getPosition()[0]) << " " << std::to_string(neighbor->getPosition()[1])<< " as neighbor." << std::endl;
                         }
                     }
                 }
@@ -83,7 +73,6 @@ void BreadthFirstSearch::initialize(){
 
     _frontier.push(_start);
     _start->setExplored(true);
-    std::cout << &_start << std::endl;
 
     std::cout << "Node tree created, beginning search." << std::endl;
 }
