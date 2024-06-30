@@ -31,6 +31,7 @@ Cell goalCell(goal);
 Color default_color = Color(0, 0, 0);
 Color explored_color = Color(255, 255, 255);
 Color obstacle_color = Color(255, 255, 0);
+Color frontier_color = Color(255, 0, 255);
 
 SearchAlgorithm search_algo = SearchAlgorithm::BreadthFirst;
 
@@ -154,6 +155,8 @@ int main(){
                     color = obstacle_color;
                 } else if (currentCell->isExplored()){
                     color = explored_color;
+                } else if (currentCell->isFrontier()){
+                    color = frontier_color;
                 } else {
                     color = default_color;
                 }

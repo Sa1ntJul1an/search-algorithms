@@ -6,6 +6,7 @@ Cell::Cell(){
     _isGoal = false;
     _isObstacle = false;
     _isExplored = false;
+    _isFrontier = false;
 }
 
 Cell::Cell (std::vector<int> position){
@@ -32,6 +33,14 @@ void Cell::setExplored(bool isExplored){
 
 bool Cell::isExplored(){
     return this->_isExplored;
+}
+
+void Cell::setFrontier(bool isFrontier){
+    this->_isFrontier = isFrontier;
+}
+
+bool Cell::isFrontier(){
+    return this->_isFrontier;
 }
 
 void Cell::addNeighbor(Cell* neighbor){

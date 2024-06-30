@@ -21,6 +21,10 @@ class Cell{
 
         bool isExplored();
 
+        void setFrontier(bool);
+
+        bool isFrontier();
+
         void addNeighbor(Cell*);
 
     private:
@@ -28,6 +32,7 @@ class Cell{
         bool _isGoal;
         bool _isObstacle;
         bool _isExplored;
+        bool _isFrontier;
         std::vector<int> _position;
 };
 
