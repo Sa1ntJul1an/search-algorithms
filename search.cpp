@@ -8,6 +8,17 @@ Search::Search(Cell * start, Cell * goal, const std::vector<std::vector<Cell*>>&
     _start = start;
     _goal = goal;
     _stateSpace = stateSpace;
+
+    _goalReached = false;
+    _searchComplete = false;
+}
+
+bool Search::isGoalReached(){
+    return this->_goalReached;
+}
+
+bool Search::isSearchComplete(){
+    return this->_searchComplete;
 }
 
 void Search::_populateNeighbors(){

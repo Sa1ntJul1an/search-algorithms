@@ -16,13 +16,6 @@ class BreadthFirstSearch : public Search{
         void initialize();
 
     private:
-        Cell* _start;
-        Cell* _goal;
-
-        int _width;
-        int _height;
-
-        std::vector<std::vector<Cell*>> _stateSpace;
         std::queue<Cell*> _frontier;
 };
 

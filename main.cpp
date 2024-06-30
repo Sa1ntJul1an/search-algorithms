@@ -110,6 +110,16 @@ int main(){
         if (searching){
             iteration ++;
             search->update();
+
+            if (search->isSearchComplete()){
+                cout << "Search complete." << endl;
+                searching = false;
+            }
+
+            if (search->isGoalReached()){
+                cout << "Goal reached.  Backtracking to start..." << endl;
+            }
+            
         }
 
 

@@ -7,11 +7,15 @@ BreadthFirstSearch::BreadthFirstSearch(Cell * start, Cell * goal, const std::vec
     _stateSpace = stateSpace;
     _start = start;
     _goal = goal;
+
+     _goalReached = false;
+    _searchComplete = false;
 }
 
 void BreadthFirstSearch::update(){
     if (_frontier.empty()){
         std::cout << "Frontier empty..." << std::endl;
+        _searchComplete = true;
         return;
     }
 
@@ -20,6 +24,9 @@ void BreadthFirstSearch::update(){
     currentCell->setFrontier(false);
 
     if (currentCell == _goal){
+        std::cout << "Goal reached." << std::endl;
+        _searchComplete = true;
+        _goalReached = true;
         return;
     }
 

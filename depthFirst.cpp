@@ -12,6 +12,7 @@ DepthFirstSearch::DepthFirstSearch(Cell * start, Cell * goal, const std::vector<
 void DepthFirstSearch::update(){
     if (_frontier.empty()){
         std::cout << "Frontier empty..." << std::endl;
+        _searchComplete = true;
         return;
     }
 
@@ -20,6 +21,9 @@ void DepthFirstSearch::update(){
     currentCell->setFrontier(false);
 
     if (currentCell == _goal){
+        std::cout << "Goal reached." << std::endl;
+        _searchComplete = true;
+        _goalReached = true;
         return;
     }
 

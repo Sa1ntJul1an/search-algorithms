@@ -16,14 +16,7 @@ class DepthFirstSearch : public Search{
         void initialize();
 
     private:
-        std::vector<std::vector<Cell*>> _stateSpace;
         std::stack<Cell*> _frontier;
-
-        Cell* _start;
-        Cell* _goal;
-
-        int _width;
-        int _height;
 };
 
 #endif /* !DEPTHFIRST_HEADER */
