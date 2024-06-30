@@ -33,7 +33,7 @@ Color explored_color = Color(180, 180, 180);
 Color obstacle_color = Color(255, 255, 0);
 Color frontier_color = Color(255, 0, 255);
 
-SearchAlgorithm search_algo = SearchAlgorithm::BreadthFirst;
+SearchAlgorithm search_algo = SearchAlgorithm::DepthFirst;
 
 int main(){
 

@@ -9,7 +9,7 @@
 
 class DepthFirstSearch : public Search{
     public:
-        DepthFirstSearch(const Cell&, const Cell&, std::vector<std::vector<Cell*>>);
+        DepthFirstSearch(Cell *, Cell *, const std::vector<std::vector<Cell*>>&);
 
         void update();
 
@@ -18,6 +18,12 @@ class DepthFirstSearch : public Search{
     private:
         std::vector<std::vector<Cell*>> _stateSpace;
         std::stack<Cell*> _frontier;
+
+        Cell* _start;
+        Cell* _goal;
+
+        int _width;
+        int _height;
 };
 
 #endif /* !DEPTHFIRST_HEADER */

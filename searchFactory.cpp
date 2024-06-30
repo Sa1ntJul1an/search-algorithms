@@ -10,8 +10,8 @@ Search* SearchFactory::createSearch(Cell* start, Cell * goal, const std::vector<
         case SearchAlgorithm::BreadthFirst:
             return new BreadthFirstSearch(start, goal, stateSpace);
             break;
-        //case SearchAlgorithm::DepthFirst:
-        //    return new DepthFirstSearch(start, goal, stateSpace);
+        case SearchAlgorithm::DepthFirst:
+            return new DepthFirstSearch(start, goal, stateSpace);
         default:
             return new BreadthFirstSearch(start, goal, stateSpace);
     }
