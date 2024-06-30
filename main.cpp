@@ -25,8 +25,8 @@ const int CELL_SIZE = 20;
 const vector<int> start = {0, HEIGHT - 1};
 const vector<int> goal = {WIDTH - 1, 0};
 
-Cell startCell(start);
-Cell goalCell(goal);
+Cell * startCell = new Cell(start);
+Cell * goalCell = new Cell(goal);
 
 Color default_color = Color(0, 0, 0);
 Color explored_color = Color(255, 255, 255);
@@ -49,9 +49,9 @@ int main(){
         for (int col = 0; col < HEIGHT; col ++){
             vector<int> position = {row, col};
             if (position == start){
-                column.push_back(&startCell);
+                column.push_back(startCell);
             } else if (position == goal){
-                column.push_back(&goalCell);
+                column.push_back(goalCell);
             } else{
                 Cell* cell = new Cell({row, col});
                 column.push_back(cell);
@@ -69,7 +69,7 @@ int main(){
     // RENDER WINDOW
     // =======================================================================
     RenderWindow renderWindow(VideoMode(WIDTH * CELL_SIZE + 1, HEIGHT * CELL_SIZE + 2), "Search Algorithm");
-    renderWindow.setFramerateLimit(10);
+    renderWindow.setFramerateLimit(60);
     // =======================================================================
 
     Font font;
@@ -109,12 +109,17 @@ int main(){
 
         if (searching){
             iteration ++;
+            search->update();
         }
 
 
         // KEYBOARD EVENTS =========================================
-        if (Keyboard::isKeyPressed(Keyboard::Space)){   // space to pause / unpause
-            searching = !searching;
+        if (!searching && Keyboard::isKeyPressed(Keyboard::Space)){   // space to start search
+            searching = true;
+            search->initialize();
+
+            // slow framerate for easier viewing of each iteration
+            renderWindow.setFramerateLimit(10);
         }
         if (Keyboard::isKeyPressed(Keyboard::R)){       // R to reset
             for (int row = 0; row < WIDTH; row++){
@@ -122,6 +127,7 @@ int main(){
                     cells[row][col]->setObstacle(false);
                 }
             }
+            renderWindow.setFramerateLimit(60);
             iteration = 0;
             searching = false;
         }
@@ -204,6 +210,9 @@ int main(){
         renderWindow.display();
 
     }
+
+    delete startCell;
+    delete goalCell;
 
     for (int row = 0; row < WIDTH; row ++){
         for (int col = 0; col < HEIGHT; col ++){

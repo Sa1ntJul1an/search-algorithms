@@ -8,7 +8,7 @@
 
 class SearchFactory{
     public:
-        Search* createSearch(const Cell&, const Cell&, std::vector<std::vector<Cell*>>, SearchAlgorithm);        
+        Search* createSearch(Cell *, Cell *, const std::vector<std::vector<Cell*>>&, SearchAlgorithm);        
 };
 
 #endif /* !SEARCHFACTORY_HEADER */

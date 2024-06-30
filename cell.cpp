@@ -7,12 +7,16 @@ Cell::Cell(){
     _isObstacle = false;
     _isExplored = false;
     _isFrontier = false;
+    _parent = nullptr;
 }
 
 Cell::Cell (std::vector<int> position){
     _position = position;
+    _isGoal = false;
     _isObstacle = false;
     _isExplored = false;
+    _isFrontier = false;
+    _parent = nullptr;
 }
 
 std::vector<int> Cell::getPosition(){
@@ -43,6 +47,18 @@ bool Cell::isFrontier(){
     return this->_isFrontier;
 }
 
+void Cell::setParent(Cell* parent){
+    this->_parent = parent;
+}
+
+Cell* Cell::getParent(){
+    return this->_parent;
+}
+
 void Cell::addNeighbor(Cell* neighbor){
     _neighbors.push_back(neighbor);
+}
+
+std::vector<Cell*> Cell::getNeighbors(){
+    return this->_neighbors;
 }

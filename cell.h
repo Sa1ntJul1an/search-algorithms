@@ -25,10 +25,18 @@ class Cell{
 
         bool isFrontier();
 
+        void setParent(Cell*);
+
+        Cell* getParent();
+
         void addNeighbor(Cell*);
+
+        std::vector<Cell*> getNeighbors();
 
     private:
         std::vector<Cell*> _neighbors;
+        Cell* _parent;
+
         bool _isGoal;
         bool _isObstacle;
         bool _isExplored;
