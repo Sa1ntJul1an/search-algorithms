@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "search.h"
 #include "cell.h"
 #include "searchAlgorithms.h"
@@ -24,6 +26,10 @@ void Search::_populateNeighbors(){
                 for (int col_offset = -1; col_offset <= 1; col_offset++){
                     if (row + row_offset >= 0 && row + row_offset <= _width - 1){
                         if (col + col_offset >= 0 && col + col_offset <= _height - 1){
+
+                            if (abs(row_offset) == abs(col_offset)){
+                                continue;
+                            }
                             
                             Cell* neighbor = _stateSpace[row + row_offset][col + col_offset];
 
