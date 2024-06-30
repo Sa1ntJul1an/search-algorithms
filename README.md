@@ -1,4 +1,4 @@
-# Search ALgorithms
+# Search Algorithms
 Search algorithm implementations, C++ and SFML
 
 compiler link for SFML: 
