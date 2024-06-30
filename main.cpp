@@ -28,6 +28,10 @@ const vector<int> goal = {WIDTH - 1, 0};
 Cell startCell(start);
 Cell goalCell(goal);
 
+Color default_color = Color(0, 0, 0);
+Color explored_color = Color(255, 255, 255);
+Color obstacle_color = Color(255, 255, 0);
+
 SearchAlgorithm search_algo = SearchAlgorithm::BreadthFirst;
 
 int main(){
@@ -140,17 +144,21 @@ int main(){
         // ==========================================================
         renderWindow.clear();
 
+        Color color;
         for (int row = 0; row < WIDTH; row ++){
             for (int col = 0; col < WIDTH; col ++){
-                if (cells[row][col]->isObstacle()){
-                    vector<int> cellPosition = cells[row][col]->getPosition();
-                    cellRect.setPosition(Vector2f(double(cellPosition[0] * CELL_SIZE), double(cellPosition[1] * CELL_SIZE)));
-
-                    Color color(255, 255, 0);
-                    cellRect.setFillColor(color);
-
-                    renderWindow.draw(cellRect);
+                Cell* currentCell = cells[row][col];
+                vector<int> cellPosition = cells[row][col]->getPosition();
+                cellRect.setPosition(Vector2f(double(cellPosition[0] * CELL_SIZE), double(cellPosition[1] * CELL_SIZE)));
+                if (currentCell->isObstacle()){
+                    color = obstacle_color;
+                } else if (currentCell->isExplored()){
+                    color = explored_color;
+                } else {
+                    color = default_color;
                 }
+                cellRect.setFillColor(color);
+                renderWindow.draw(cellRect);
             }
         }
 
