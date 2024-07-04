@@ -37,6 +37,14 @@ class Cell{
 
         std::vector<Cell*> getNeighbors();
 
+        void setFScore(float);
+
+        float getFScore();
+
+        void setGScore(float);
+
+        float getGScore();
+
         void resetState();
 
     private:
@@ -48,6 +56,9 @@ class Cell{
         bool _isExplored;
         bool _isFrontier;
         bool _isPath;
+
+        float _gScore;
+        float _fScore;
         std::vector<int> _position;
 };
 

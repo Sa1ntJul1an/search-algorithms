@@ -36,7 +36,7 @@ Color obstacle_color = Color(255, 255, 0);
 Color frontier_color = Color(255, 0, 255);
 Color path_color = Color(0, 255, 255);
 
-SearchAlgorithm search_algo = SearchAlgorithm::BreadthFirst;
+SearchAlgorithm search_algo = SearchAlgorithm::AStar;
 
 int main(){
 

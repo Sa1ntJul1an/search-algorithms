@@ -1,4 +1,5 @@
 #include "cell.h"
+#include <math.h>
 #include <vector>
 
 Cell::Cell(){
@@ -10,6 +11,9 @@ Cell::Cell(){
     _isFrontier = false;
     _parent = nullptr;
     _isPath = false;
+
+    _gScore = 9999999.0;
+    _fScore = 0;
 }
 
 Cell::Cell (std::vector<int> position){
@@ -21,6 +25,9 @@ Cell::Cell (std::vector<int> position){
     _isFrontier = false;
     _parent = nullptr;
     _isPath = false;
+
+    _gScore = 9999999.0;
+    _fScore = 0;
 }
 
 std::vector<int> Cell::getPosition(){
@@ -75,6 +82,22 @@ std::vector<Cell*> Cell::getNeighbors(){
     return this->_neighbors;
 }
 
+void Cell::setFScore(float score){
+    this->_fScore = score;
+}
+
+float Cell::getFScore(){
+    return this->_fScore;
+}
+
+void Cell::setGScore(float score){
+    this->_gScore = score;
+}
+
+float Cell::getGScore(){
+    return this->_gScore;
+}
+
 void Cell::resetState(){
     _neighbors.clear();
     _isObstacle = false;
@@ -82,4 +105,7 @@ void Cell::resetState(){
     _isFrontier = false;
     _parent = nullptr;
     _isPath = false;
+
+    _fScore = 0;
+    _gScore = __INT_MAX__;
 }
