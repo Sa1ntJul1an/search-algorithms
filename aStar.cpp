@@ -27,11 +27,12 @@ void AStarSearch::update(){
         _searchComplete = true;
         return;
     }
-    
+
     Cell * currentNode = _nodes.top();
     _nodes.pop();
 
-    //currentCell->setFrontier(false);
+    currentNode->setFrontier(false);
+    currentNode->setExplored(true);
 
     if (currentNode == _goal){
         _searchComplete = true;
@@ -40,19 +41,21 @@ void AStarSearch::update(){
     }
 
     std::cout << "parent: (" << std::to_string(currentNode->getPosition()[0]) << ", " << std::to_string(currentNode->getPosition()[1]) << ")" << std::endl;
+    std::cout << "parent f score: " << std::to_string(currentNode->getFScore()) << std::endl;
 
     for (Cell * neighbor : currentNode->getNeighbors()){
         float gScore = currentNode->getGScore() + 1;      // currently, all state transitions have cost = 1
-        std::cout << "neighbor: (" << std::to_string(neighbor->getPosition()[0]) << ", " << std::to_string(neighbor->getPosition()[1]) << ")" << std::endl;
-        std::cout << "neightbor G score: " << std::to_string(neighbor->getGScore()) << std::endl;
-        std::cout << "tentative g: " << std::to_string(gScore) << std::endl;
+        std::cout << "  neighbor: (" << std::to_string(neighbor->getPosition()[0]) << ", " << std::to_string(neighbor->getPosition()[1]) << ")" << std::endl;
+        std::cout << "  neightbor G score: " << std::to_string(neighbor->getGScore()) << std::endl;
+        std::cout << "  tentative g: " << std::to_string(gScore) << std::endl;
         if (gScore < neighbor->getGScore()){
             neighbor->setParent(currentNode);
             neighbor->setGScore(gScore);
             neighbor->setFScore(gScore + heuristic(neighbor));
-            std::cout << "h: " << std::to_string(heuristic(neighbor)) << std::endl;
+            std::cout << "      h: " << std::to_string(heuristic(neighbor)) << std::endl;
 
             if(!neighborExistsInQueue(neighbor)){
+                std::cout << "      neighbor: (" << std::to_string(neighbor->getPosition()[0]) << ", " << std::to_string(neighbor->getPosition()[1]) << ") added to frontier" << std::endl;
                 neighbor->setFrontier(true);
                 _nodes.push(neighbor);
             }
@@ -131,6 +134,7 @@ bool AStarSearch::neighborExistsInQueue(Cell * neighbor){
     while (!_nodes.empty()){
         Cell * cell = _nodes.top();
         _nodes.pop();
+        std::cout << "  cell in queue: (" << std::to_string(cell->getPosition()[0]) << ", " << std::to_string(cell->getPosition()[1]) << ")" << std::endl;
 
         temp.push_back(cell);  // store cell in temp storage
 
