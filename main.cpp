@@ -93,7 +93,7 @@ int main(){
 
         mousePosition = {float(Mouse::getPosition(renderWindow).x), float(Mouse::getPosition(renderWindow).y)};
 
-        if (!searching){
+        if (!searching && !search->isSearchComplete()){
             if (Mouse::isButtonPressed(Mouse::Left)){       // set as obstacle
                 int row = mousePosition[0] / CELL_SIZE;
                 int col = mousePosition[1] / CELL_SIZE;
@@ -153,6 +153,7 @@ int main(){
             renderWindow.setFramerateLimit(30);
         }
         if (Keyboard::isKeyPressed(Keyboard::R)){       // R to reset
+            cout << "Restarting search, clearing state space." << endl;
             for (int row = 0; row < WIDTH; row++){
                 for (int col = 0; col < HEIGHT; col++){
                     cells[row][col]->resetState();
