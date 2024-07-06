@@ -36,7 +36,7 @@ Color obstacle_color = Color(255, 255, 0);
 Color frontier_color = Color(255, 0, 255);
 Color path_color = Color(0, 255, 255);
 
-SearchAlgorithm search_algo = SearchAlgorithm::AStar;
+SearchAlgorithm search_algo = SearchAlgorithm::DepthFirst;
 
 int main(){
 
@@ -66,7 +66,6 @@ int main(){
     Search* search;
 
     bool searching = false;
-    bool backTracking = false;
 
     int iteration = 0;
 
@@ -122,22 +121,11 @@ int main(){
                 searching = false;
 
                 if (search->isGoalReached()){
-                    cout << "Goal reached.  Backtracking to start cell..." << endl;
-                    backTracking = true;
+                    cout << "Goal reached." << endl;
                     currentPathCell = goalCell;
                 } else {
                     cout << "Goal not found, path may not be possible." << endl;
                 }
-            }
-        }
-
-        if (backTracking) {
-            currentPathCell->setPath(true);
-            Cell * parent = currentPathCell->getParent();
-            currentPathCell = parent;
-
-            if (currentPathCell == nullptr){
-                backTracking = false;
             }
         }
 

@@ -25,6 +25,8 @@ void AStarSearch::update(){
     currentNode->setFrontier(false);
     currentNode->setExplored(true);
 
+    _backtrackPath(currentNode);
+
     if (currentNode == _goal){
         _searchComplete = true;
         _goalReached = true;

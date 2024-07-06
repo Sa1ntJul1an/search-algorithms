@@ -11,8 +11,6 @@ class AStarSearch : public Search{
     public:
         AStarSearch(Cell *, Cell *, const std::vector<std::vector<Cell*>>&);
 
-        ~AStarSearch();
-
         void update();
 
         void initialize();

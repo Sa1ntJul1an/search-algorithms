@@ -23,6 +23,8 @@ void BreadthFirstSearch::update(){
     _frontier.pop();
     currentCell->setFrontier(false);
 
+     _backtrackPath(currentCell);
+
     if (currentCell == _goal){
         _searchComplete = true;
         _goalReached = true;

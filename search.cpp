@@ -11,6 +11,8 @@ Search::Search(Cell * start, Cell * goal, const std::vector<std::vector<Cell*>>&
 
     _goalReached = false;
     _searchComplete = false;
+
+    _previous_popped_cell = nullptr;
 }
 
 bool Search::isGoalReached(){
@@ -54,5 +56,26 @@ void Search::_populateNeighbors(){
             }
 
         }
+    }
+}
+
+void Search::_backtrackPath(Cell * currentCell){
+    
+    // clear previous path if it existed
+    if (_previous_popped_cell != nullptr){
+        while (_previous_popped_cell != nullptr){
+            _previous_popped_cell->setPath(false);
+            _previous_popped_cell = _previous_popped_cell->getParent();
+        }
+    }
+
+    // store pointer to beginning of current path so it can be cleared next iteration
+    _previous_popped_cell = currentCell;
+
+    // draw path points for current node back to start
+    Cell * cell = currentCell;
+    while (cell != nullptr){
+        cell->setPath(true);
+        cell = cell->getParent();
     }
 }
