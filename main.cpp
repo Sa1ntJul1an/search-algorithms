@@ -36,7 +36,7 @@ Color obstacle_color = Color(255, 255, 0);
 Color frontier_color = Color(255, 0, 255);
 Color path_color = Color(0, 255, 255);
 
-SearchAlgorithm search_algo = SearchAlgorithm::DepthFirst;
+SearchAlgorithm search_algo = SearchAlgorithm::AStar;
 
 int main(){
 
@@ -45,6 +45,36 @@ int main(){
     vector<float> mousePosition;
 
     vector<vector<Cell*>> cells;
+
+    vector<string> implementedAlgorithms = {"Breadth First Search", "Depth First Search", "A* Search"};
+
+    // SEARCH ALGO MENU RENDER WINDOW
+    // =======================================================================
+    int menuItemHeight = 50;
+    int menuWindowWidth = 300;
+
+    RenderWindow menu(VideoMode(menuWindowWidth, implementedAlgorithms.size() * menuItemHeight + 100), "Search Algorithms");
+    menu.setFramerateLimit(60);
+
+    RectangleShape menuOption(Vector2f(menuWindowWidth, menuItemHeight));
+    menuOption.setFillColor(Color(100, 100, 100));
+
+    //while(menu.isOpen()){
+
+       // mousePosition = {float(Mouse::getPosition(menu).x), float(Mouse::getPosition(menu).y)};
+
+        
+      //  menuOption.setFillColor(Color(100, 100, 100));
+
+        
+
+
+      //  if (Mouse::isButtonPressed(Mouse::Left)){
+     //       int selection = mousePosition[1] / menuItemHeight;
+            
+       // }
+   // }
+    // =======================================================================
 
     // fill state space 
     for (int row = 0; row < WIDTH; row ++){
@@ -69,7 +99,7 @@ int main(){
 
     int iteration = 0;
 
-    // RENDER WINDOW
+    // SEARCH RENDER WINDOW
     // =======================================================================
     RenderWindow renderWindow(VideoMode(WIDTH * CELL_SIZE + 1, HEIGHT * CELL_SIZE + 2), "Search Algorithm");
     renderWindow.setFramerateLimit(60);
