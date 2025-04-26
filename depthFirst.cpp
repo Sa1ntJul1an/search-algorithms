@@ -20,12 +20,13 @@ void DepthFirstSearch::update(){
     _frontier.pop();
     currentCell->setFrontier(false);
 
+     _backtrackPath(currentCell);
+
     if (currentCell == _goal){
         _searchComplete = true;
         _goalReached = true;
         return;
     }
-
     std::vector<Cell*> neighbors = currentCell->getNeighbors();
     int numNeighbors = neighbors.size();
 

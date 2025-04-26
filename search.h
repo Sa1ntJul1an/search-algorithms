@@ -26,9 +26,13 @@ class Search{
         Cell * _start;
         Cell * _goal;
 
+        Cell * _previous_popped_cell;
+
         std::vector<std::vector<Cell*>> _stateSpace;
 
         void _populateNeighbors();
+
+        void _backtrackPath(Cell *);
 };
 
 

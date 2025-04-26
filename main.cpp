@@ -46,6 +46,36 @@ int main(){
 
     vector<vector<Cell*>> cells;
 
+    vector<string> implementedAlgorithms = {"Breadth First Search", "Depth First Search", "A* Search"};
+
+    // SEARCH ALGO MENU RENDER WINDOW
+    // =======================================================================
+    int menuItemHeight = 50;
+    int menuWindowWidth = 300;
+
+    RenderWindow menu(VideoMode(menuWindowWidth, implementedAlgorithms.size() * menuItemHeight + 100), "Search Algorithms");
+    menu.setFramerateLimit(60);
+
+    RectangleShape menuOption(Vector2f(menuWindowWidth, menuItemHeight));
+    menuOption.setFillColor(Color(100, 100, 100));
+
+    //while(menu.isOpen()){
+
+       // mousePosition = {float(Mouse::getPosition(menu).x), float(Mouse::getPosition(menu).y)};
+
+        
+      //  menuOption.setFillColor(Color(100, 100, 100));
+
+        
+
+
+      //  if (Mouse::isButtonPressed(Mouse::Left)){
+     //       int selection = mousePosition[1] / menuItemHeight;
+            
+       // }
+   // }
+    // =======================================================================
+
     // fill state space 
     for (int row = 0; row < WIDTH; row ++){
         vector<Cell*> column;
@@ -66,11 +96,10 @@ int main(){
     Search* search;
 
     bool searching = false;
-    bool backTracking = false;
 
     int iteration = 0;
 
-    // RENDER WINDOW
+    // SEARCH RENDER WINDOW
     // =======================================================================
     RenderWindow renderWindow(VideoMode(WIDTH * CELL_SIZE + 1, HEIGHT * CELL_SIZE + 2), "Search Algorithm");
     renderWindow.setFramerateLimit(60);
@@ -122,22 +151,11 @@ int main(){
                 searching = false;
 
                 if (search->isGoalReached()){
-                    cout << "Goal reached.  Backtracking to start cell..." << endl;
-                    backTracking = true;
+                    cout << "Goal reached." << endl;
                     currentPathCell = goalCell;
                 } else {
                     cout << "Goal not found, path may not be possible." << endl;
                 }
-            }
-        }
-
-        if (backTracking) {
-            currentPathCell->setPath(true);
-            Cell * parent = currentPathCell->getParent();
-            currentPathCell = parent;
-
-            if (currentPathCell == nullptr){
-                backTracking = false;
             }
         }
 
