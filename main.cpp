@@ -1,8 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <fstream>
 #include <iostream>
-#include <vector>
-#include <random>
 #include <cmath>
 
 #include "cell.h"
@@ -53,27 +50,6 @@ int main(){
     int menuItemHeight = 50;
     int menuWindowWidth = 300;
 
-    RenderWindow menu(VideoMode(menuWindowWidth, implementedAlgorithms.size() * menuItemHeight + 100), "Search Algorithms");
-    menu.setFramerateLimit(60);
-
-    RectangleShape menuOption(Vector2f(menuWindowWidth, menuItemHeight));
-    menuOption.setFillColor(Color(100, 100, 100));
-
-    //while(menu.isOpen()){
-
-       // mousePosition = {float(Mouse::getPosition(menu).x), float(Mouse::getPosition(menu).y)};
-
-        
-      //  menuOption.setFillColor(Color(100, 100, 100));
-
-        
-
-
-      //  if (Mouse::isButtonPressed(Mouse::Left)){
-     //       int selection = mousePosition[1] / menuItemHeight;
-            
-       // }
-   // }
     // =======================================================================
 
     // fill state space 
@@ -189,7 +165,6 @@ int main(){
         Event renderWindowEvent;
 
         while(renderWindow.pollEvent(renderWindowEvent)){
-            
             if(renderWindowEvent.type == Event::Closed){
                 renderWindow.close();
             }
@@ -254,19 +229,14 @@ int main(){
             renderWindow.draw(horizontalLine);
         }
         // ==========================================================
-
         iterationText.setString("Iteration: " + to_string(iteration));
-
         renderWindow.draw(iterationText);
-
         renderWindow.display();
 
     }
 
     delete startCell;
     delete goalCell;
-
-    delete search;
 
     for (int row = 0; row < WIDTH; row ++){
         for (int col = 0; col < HEIGHT; col ++){
