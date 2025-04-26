@@ -1,8 +1,8 @@
 all: compile link
 
 compile:
-	g++ -c main.cpp -Isrc/include
-	g++ -c cell.cpp -Isrc/include
+	g++ -c main.cpp
+	g++ -c cell.cpp
 	g++ -c search.cpp
 	g++ -c searchFactory.cpp
 	g++ -c breadthFirst.cpp
@@ -11,4 +11,4 @@ compile:
 	
 # add -mwindows at end of link to hide console
 link:
-	g++ main.o cell.o search.o searchFactory.o breadthFirst.o depthFirst.o aStar.o -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system -lopengl32 -lfreetype -lwinmm -lgdi32 	
+	g++ main.o cell.o search.o searchFactory.o breadthFirst.o depthFirst.o aStar.o -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system -lfreetype
